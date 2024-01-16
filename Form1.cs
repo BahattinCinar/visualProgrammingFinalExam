@@ -38,9 +38,12 @@ namespace visualProgrammingFinalExam
             int[] a = new int[3];
             int rndm;
 
+            //kul aralik girdisi
             a[0] = int.Parse(textBox1.Text);
             a[1] = int.Parse(textBox2.Text);
 
+
+            //yer degistirme algoriymasi
             if (a[0] > a[1])
             {
                 MessageBox.Show("araliklari ters girmissiniz duzeltiyorum.");
@@ -49,10 +52,14 @@ namespace visualProgrammingFinalExam
                 c = a[0];
                 a[0] = a[1];
                 a[1] = c;
+
+                textBox1.Text = a[0].ToString();
+                textBox2.Text = a[1].ToString();
             }
 
             Random rnd = new Random();
 
+            //bil random gen
             for(int i = 0; i < ai.Length; i++)
             {
             rndm:
@@ -70,11 +77,27 @@ namespace visualProgrammingFinalExam
                 }
             }
 
+            //kul tahmin girdisi
             for(int i = 0;i < kul.Length; i++)
             {
-                kul[i] = int.Parse(Interaction.InputBox($"{i}. tahmininizi giriniz","Kullanici tahmin ekrani","0",500,500));
+            rndm:
+                rndm = int.Parse(Interaction.InputBox($"{i+1}. tahmininizi giriniz","Kullanici tahmin ekrani","0",500,500));
+
+                int iof = Array.IndexOf(kul, rndm);
+
+                if (iof == -1)
+                {
+                    kul[i] = rndm;
+                }
+                else
+                {
+                    MessageBox.Show("Ayni sayiyi tekrar giremezsiniz!!!");
+
+                    goto rndm;
+                }
             }
 
+            //listbox ekleme
             for (int i = 0; i < ai.Length; i++)
             {
                 listBox1.Items.Add(ai[i]);
@@ -84,6 +107,8 @@ namespace visualProgrammingFinalExam
             {
                 listBox2.Items.Add(kul[i]);
             }
+
+            //dogru sayisina gore yazi yazdirma ve muzik caldirma
             eslestirme();
         }
 
